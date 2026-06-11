@@ -2,6 +2,12 @@
 
 REST API untuk mengelola jadwal pelajaran sekolah, dibangun dengan **Node.js + Express.js + PostgreSQL** dan dioptimasi untuk deployment **Vercel Serverless**.
 
+> [!IMPORTANT]
+> **Informasi Pengujian untuk Recruiter:**
+> * **Live URL API:** [https://sistem-jadwal-five.vercel.app/](https://sistem-jadwal-five.vercel.app/)
+> * **Database URL (Neon.tech):** `postgresql://neondb_owner:npg_gGoL3axrPi0X@ep-crimson-morning-aovkjdur-pooler.c-2.ap-southeast-1.aws.neon.tech/sistem_jadwal?sslmode=require&channel_binding=require`
+> * **Autentikasi API Key (`x-api-key`):** `SECRET123`
+
 ---
 
 ## Daftar Endpoint
@@ -96,8 +102,7 @@ Buka **Vercel Dashboard → Project → Settings → Environment Variables**, la
 
 | Variable | Value | Contoh |
 |----------|-------|--------|
-| `DATABASE_URL` | Connection string Neon | `postgres://user:pass@host/db?sslmode=require` |
-| `API_KEY` | API key untuk autentikasi | `SECRET123` |
+| `DATABASE_URL` | Connection string Neon | `postgresql://neondb_owner:npg_gGoL3axrPi0X@ep-crimson-morning-aovkjdur-pooler.c-2.ap-southeast-1.aws.neon.tech/sistem_jadwal?sslmode=require&channel_binding=require` |
 | `NODE_ENV` | Environment | `production` |
 
 ### Verifikasi `vercel.json`
