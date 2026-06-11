@@ -370,11 +370,10 @@ app.get('/', (req, res) => {
       <div class="card" style="margin-bottom: 0;">
         <h2>🔐 Keamanan & Autentikasi</h2>
         <p style="color: var(--text-muted); margin-bottom: 1rem;">
-          Untuk mengakses endpoint bertanda <span class="auth-badge">Auth</span>, sertakan salah satu autentikasi berikut di dalam header request:
+          Untuk mengakses endpoint bertanda <span class="auth-badge">Auth</span>, sertakan API Key berikut di dalam header request:
         </p>
         <div style="background: rgba(0,0,0,0.2); padding: 1.25rem; border-radius: 12px; font-family: monospace; font-size: 0.9rem; border: 1px solid var(--glass-border);">
-          <div style="margin-bottom: 0.5rem; color: #fff;"><span style="color: var(--accent-pink);">// Opsi 1: API Key Header</span><br>x-api-key: <span style="color: #c084fc;">[API_KEY_ANDA]</span></div>
-          <div style="color: #fff;"><span style="color: var(--accent-pink);">// Opsi 2: JWT Bearer Token</span><br>Authorization: Bearer <span style="color: #c084fc;">[TOKEN_JWT_ANDA]</span></div>
+          <div style="color: #fff;"><span style="color: var(--accent-pink);">// API Key Header</span><br>x-api-key: <span style="color: #c084fc;">SECRET123</span></div>
         </div>
       </div>
     </main>
