@@ -1,0 +1,17 @@
+# API Documentation
+API_DOCUMENTATION.md
+API_DOCUMENTATION.pdf
+
+# Dependencies
+node_modules/
+
+# Environment variables
+.env
+.env.local
+
+# Agent/Tool config
+.agents/
+skills-lock.json
+
+# OS files
+.DS_Store

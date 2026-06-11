@@ -1,0 +1,265 @@
+{
+  "info": {
+    "name": "Sistem Jadwal Pelajaran API",
+    "description": "REST API untuk mengelola jadwal pelajaran sekolah.\n\nVariables:\n- {{base_url}}: URL dasar API (default: http://localhost:3000)\n- {{api_key}}: API Key untuk autentikasi (default: SECRET123)",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "base_url",
+      "value": "http://localhost:3000",
+      "type": "string"
+    },
+    {
+      "key": "api_key",
+      "value": "SECRET123",
+      "type": "string"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "x-api-key",
+        "type": "string"
+      },
+      {
+        "key": "value",
+        "value": "{{api_key}}",
+        "type": "string"
+      },
+      {
+        "key": "in",
+        "value": "header",
+        "type": "string"
+      }
+    ]
+  },
+  "event": [
+    {
+      "listen": "prerequest",
+      "script": {
+        "type": "text/javascript",
+        "exec": [
+          "// Pre-request script: set header x-api-key otomatis",
+          "pm.request.headers.upsert({",
+          "    key: 'x-api-key',",
+          "    value: pm.collectionVariables.get('api_key')",
+          "});"
+        ]
+      }
+    }
+  ],
+  "item": [
+    {
+      "name": "CRUD Jadwal",
+      "item": [
+        {
+          "name": "POST - Tambah Jadwal",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/schedules",
+              "host": ["{{base_url}}"],
+              "path": ["api", "schedules"]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"class_code\": \"XA\",\n  \"class_name\": \"X-A\",\n  \"subject_code\": \"MTK\",\n  \"teacher_nik\": \"19850101001\",\n  \"teacher_name\": \"Budi Santoso, S.Pd\",\n  \"date\": \"2025-02-10\",\n  \"jam_ke\": 1,\n  \"time_start\": \"07:30:00\",\n  \"time_end\": \"08:10:00\"\n}"
+            }
+          }
+        },
+        {
+          "name": "GET - Semua Jadwal",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{base_url}}/api/schedules",
+              "host": ["{{base_url}}"],
+              "path": ["api", "schedules"]
+            }
+          }
+        },
+        {
+          "name": "GET - Filter by class_code",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{base_url}}/api/schedules?class_code=XA",
+              "host": ["{{base_url}}"],
+              "path": ["api", "schedules"],
+              "query": [
+                { "key": "class_code", "value": "XA" }
+              ]
+            }
+          }
+        },
+        {
+          "name": "GET - Filter by date",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{base_url}}/api/schedules?date=2025-02-10",
+              "host": ["{{base_url}}"],
+              "path": ["api", "schedules"],
+              "query": [
+                { "key": "date", "value": "2025-02-10" }
+              ]
+            }
+          }
+        },
+        {
+          "name": "GET - Filter by teacher_nik",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{base_url}}/api/schedules?teacher_nik=19850101001",
+              "host": ["{{base_url}}"],
+              "path": ["api", "schedules"],
+              "query": [
+                { "key": "teacher_nik", "value": "19850101001" }
+              ]
+            }
+          }
+        },
+        {
+          "name": "PUT - Update Jadwal",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/schedules/:id",
+              "host": ["{{base_url}}"],
+              "path": ["api", "schedules", ":id"],
+              "variable": [
+                { "key": "id", "value": "paste-uuid-here" }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"class_code\": \"XA\",\n  \"class_name\": \"X-A\",\n  \"subject_code\": \"FIS\",\n  \"teacher_nik\": \"19850101001\",\n  \"teacher_name\": \"Budi Santoso, S.Pd\",\n  \"date\": \"2025-02-10\",\n  \"jam_ke\": 2,\n  \"time_start\": \"08:10:00\",\n  \"time_end\": \"08:50:00\"\n}"
+            }
+          }
+        },
+        {
+          "name": "DELETE - Hapus Jadwal",
+          "request": {
+            "method": "DELETE",
+            "url": {
+              "raw": "{{base_url}}/api/schedules/:id",
+              "host": ["{{base_url}}"],
+              "path": ["api", "schedules", ":id"],
+              "variable": [
+                { "key": "id", "value": "paste-uuid-here" }
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Excel Import / Export",
+      "item": [
+        {
+          "name": "POST - Upload Excel",
+          "request": {
+            "method": "POST",
+            "url": {
+              "raw": "{{base_url}}/api/schedules/upload",
+              "host": ["{{base_url}}"],
+              "path": ["api", "schedules", "upload"]
+            },
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "file",
+                  "type": "file",
+                  "src": ""
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "GET - Export Rekap JP (Excel)",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{base_url}}/api/schedules/export?start_date=2025-02-01&end_date=2025-02-28",
+              "host": ["{{base_url}}"],
+              "path": ["api", "schedules", "export"],
+              "query": [
+                { "key": "start_date", "value": "2025-02-01" },
+                { "key": "end_date", "value": "2025-02-28" }
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "View per Peran",
+      "item": [
+        {
+          "name": "GET - Jadwal Siswa",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{base_url}}/api/schedules/student?class_code=XA&date=2025-02-10",
+              "host": ["{{base_url}}"],
+              "path": ["api", "schedules", "student"],
+              "query": [
+                { "key": "class_code", "value": "XA" },
+                { "key": "date", "value": "2025-02-10" }
+              ]
+            }
+          }
+        },
+        {
+          "name": "GET - Jadwal Guru",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{base_url}}/api/schedules/teacher?teacher_nik=19850101001&start_date=2025-02-01&end_date=2025-02-28",
+              "host": ["{{base_url}}"],
+              "path": ["api", "schedules", "teacher"],
+              "query": [
+                { "key": "teacher_nik", "value": "19850101001" },
+                { "key": "start_date", "value": "2025-02-01" },
+                { "key": "end_date", "value": "2025-02-28" }
+              ]
+            }
+          }
+        },
+        {
+          "name": "GET - Rekap JP (JSON)",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{base_url}}/api/schedules/report/rekap-jp?start_date=2025-02-01&end_date=2025-02-28",
+              "host": ["{{base_url}}"],
+              "path": ["api", "schedules", "report", "rekap-jp"],
+              "query": [
+                { "key": "start_date", "value": "2025-02-01" },
+                { "key": "end_date", "value": "2025-02-28" }
+              ]
+            }
+          }
+        }
+      ]
+    }
+  ]
+}
